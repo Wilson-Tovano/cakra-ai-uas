@@ -7,8 +7,9 @@ import { CiTrash } from "react-icons/ci";
 import { FcCheckmark } from "react-icons/fc";
 import { MdContentCopy, MdError } from "react-icons/md";
 import handleSummarize from "../../actions/summarize-handler";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { notifications } from "@mantine/notifications";
+import { exampleText } from "../../assets/data/exampleData";
 
 const initialState = {
     message: "",
@@ -42,13 +43,18 @@ export default function SummarizePage() {
             inputText: (value) => {
                 if (!value) return "Input text is required";
                 if (value.length < 50) return "Input text must be at least 50 characters long";
-                if (value.length > 1000) return "Input text must be less than 1000 characters long";
+                if (value.length > 3000) return "Input text must be less than 3000 characters long";
                 return null;
             },
         },
     })
     const [formState, formAction] = useFormState(handleSummarize, initialState);
+    const [inputCharacterCounts, setInputCharacterCounts] = useState(0);
     let summary = formState.data?.processed_data ?? "";
+
+    formController.watch('inputText', ({value}) => {
+        setInputCharacterCounts(value.length)
+    })
 
     useEffect(() => {
         if (formState.isError) notifications.show({
@@ -92,10 +98,13 @@ export default function SummarizePage() {
                             <Title order={3} mb="md">Input Text</Title>
                         </Center>
                         <Group ml="auto">
-                            <Button variant="outline" size="md" aria-label="Example text button">
+                            <Button variant="outline" size="md" aria-label="Example text button" onClick={() => formController.setFieldValue('inputText', exampleText[Math.floor(Math.random() * exampleText.length)].text)}>
                                 Example Text
                             </Button>
-                            <Button size="md" variant="outline" aria-label="Clear input button" onClick={() => formController.reset()}>
+                            <Button size="md" variant="outline" aria-label="Clear input button" onClick={() => {
+                                formController.reset();
+                                setInputCharacterCounts(0);
+                            }}>
                                 <CiTrash size={24} />
                             </Button>
                         </Group>
@@ -110,7 +119,7 @@ export default function SummarizePage() {
                         </Center>
                         <Flex justify="end">
                             <Text span ms="md" me="auto">
-                                <Text span fw="bold">0</Text>&nbsp;&nbsp;Characters
+                                <Text span fw="bold">{inputCharacterCounts}</Text>&nbsp;&nbsp;Characters
                             </Text>
                             <SummarizeButton />
                         </Flex>
@@ -145,7 +154,7 @@ export default function SummarizePage() {
                         }} />
                     </Center>
                     <Text span ms="md">
-                        <Text span fw="bold">0</Text>&nbsp;&nbsp;Characters
+                        <Text span fw="bold">{formState.data?.processed_data.length ?? 0}</Text>&nbsp;&nbsp;Characters
                     </Text>
                 </Stack>
             </GridCol>
