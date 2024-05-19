@@ -1,0 +1,30 @@
+"use server"
+
+export default async function handleSummarize(prevState: any, formData: FormData) {
+    const payload = formData.get("payload")
+    if(typeof payload !== "string") {
+        return {message: "Input text is required", inputText: "", data: null, isError: true}
+    }
+    if(prevState.inputText.toLowerCase() === payload.toLowerCase()) {
+        return {message: "Input text has not changed", inputText: payload, data: prevState.data, isError: false}
+    }
+    try {
+        const response = await fetch(`${process.env.SUMMARIZE_API_URL}/summarize`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                payload: payload,
+            }),
+        })
+
+        if(response.ok) {
+            const data = await response.json()
+            return {message: "Success", inputText: payload, data: data, isError: false}
+        } else return {message: `Error status code ${response.status}`, inputText: payload, data: null, isError: true}
+    } catch (e) {
+        console.error(`${e}`);
+        return {message: "Failed to summarize. Try again later", inputText: payload, data: null, isError: true}
+    }
+}

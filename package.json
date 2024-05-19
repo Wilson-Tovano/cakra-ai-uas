@@ -1,0 +1,37 @@
+{
+  "name": "cakra-summarizer-webapp",
+  "version": "1.0.0",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@mantine/core": "^7.9.0",
+    "@mantine/form": "^7.9.0",
+    "@mantine/hooks": "^7.9.0",
+    "@mantine/notifications": "^7.9.2",
+    "@serwist/next": "9.0.2",
+    "lorem-ipsum": "^2.0.8",
+    "next": "14.2.1",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "react-icons": "^5.2.1",
+    "serwist": "9.0.2"
+  },
+  "devDependencies": {
+    "@types/node": "20.12.7",
+    "@types/react": "18.2.78",
+    "@types/react-dom": "18.2.25",
+    "eslint": "8.57.0",
+    "eslint-config-next": "14.2.3",
+    "postcss": "^8.4.38",
+    "postcss-preset-mantine": "^1.15.0",
+    "postcss-simple-vars": "^7.0.1",
+    "typescript": "5.4.5"
+  }
+}
