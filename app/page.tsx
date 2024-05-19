@@ -3,11 +3,8 @@ import { Blockquote, Button, Center, Container, Mark, Text, Title } from "@manti
 import { useEffect, useRef, useState } from "react";
 import { LoremIpsum } from "lorem-ipsum";
 import { FcAbout } from "react-icons/fc";
-import { useRouter } from "next/navigation";
 import Link from "next/link";
-import ButtonClass from "../styles/Button.module.css";
 
-const AUTO_CLICK_DELAY = 5000;
 export default function Page() {
   const loremIpsum = new LoremIpsum({
     sentencesPerParagraph: {
@@ -20,6 +17,13 @@ export default function Page() {
     }
   });
   const [text, setText] = useState('Lorem');
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setText(loremIpsum.generateParagraphs(2));
+    }, 3000);
+    return () => clearInterval(interval);
+  });
 
   return (
     <>
