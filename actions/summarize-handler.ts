@@ -2,20 +2,28 @@
 
 export default async function handleSummarize(prevState: any, formData: FormData) {
     const payload = formData.get("payload")
+    const lines = [];
     if(typeof payload !== "string") {
         return {message: "Input text is required", inputText: "", data: null, isError: true}
     }
     if(prevState.inputText.toLowerCase() === payload.toLowerCase()) {
         return {message: "Input text has not changed", inputText: payload, data: prevState.data, isError: false}
     }
+    for(const line of payload.split("\n")) {
+        if(!line.trim()) continue
+        lines.push({
+            text: line.trim()
+        })
+    }
     try {
+        console.log(JSON.stringify({payload: lines}))
         const response = await fetch(`${process.env.SUMMARIZE_API_URL}/summarize`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({
-                payload: payload,
+                payload: lines,
             }),
         })
 
