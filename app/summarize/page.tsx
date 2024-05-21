@@ -6,6 +6,7 @@ export const metadata: Metadata = {
     description: "Summarize paragraphs with Cakra's AI",
 }
 
+export const maxDuration  = 30
 export default function Page() {
     return <SummarizePage />
 }
