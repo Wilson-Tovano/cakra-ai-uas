@@ -42,8 +42,8 @@ export default function SummarizePage() {
         validate: {
             inputText: (value) => {
                 if (!value) return "Input text is required";
-                if (value.length < 50) return "Input text must be at least 50 characters long";
-                if (value.length > 3000) return "Input text must be less than 3000 characters long";
+                if (value.trim().length < 50) return "Input text must be at least 50 characters long";
+                if (value.trim().length > 3000) return "Input text must be less than 3000 characters long";
                 return null;
             },
         },
@@ -53,7 +53,7 @@ export default function SummarizePage() {
     let summary = formState.data?.processed_data ?? "";
 
     formController.watch('inputText', ({value}) => {
-        setInputCharacterCounts(value.length)
+        setInputCharacterCounts(value.trim().length)
     })
 
     useEffect(() => {
