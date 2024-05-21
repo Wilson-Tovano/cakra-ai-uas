@@ -1,8 +1,8 @@
 "use client"
 
-import { ActionIcon, AppShell, Center, Group, Switch, Title, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
+import { AppShell, Center, Group, Switch, Title, useComputedColorScheme, useMantineColorScheme } from '@mantine/core';
 import Image from 'next/image';
-import { ReactNode, useEffect, useRef, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { CiLight } from "react-icons/ci";
 import { CiDark } from "react-icons/ci";
 import logo from "../assets/image/logo-full-white.png"
