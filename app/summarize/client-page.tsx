@@ -50,7 +50,7 @@ export default function SummarizePage() {
     })
     const [formState, formAction] = useFormState(handleSummarize, initialState);
     const [inputCharacterCounts, setInputCharacterCounts] = useState(0);
-    let summary = formState.data?.processed_data ?? "";
+    let summary = formState.data?.processed_data.join("\n") ?? "";
 
     formController.watch('inputText', ({value}) => {
         setInputCharacterCounts(value.trim().length)
@@ -154,7 +154,7 @@ export default function SummarizePage() {
                         }} />
                     </Center>
                     <Text span ms="md">
-                        <Text span fw="bold">{formState.data?.processed_data.length ?? 0}</Text>&nbsp;&nbsp;Characters
+                        <Text span fw="bold">{summary.length ?? 0}</Text>&nbsp;&nbsp;Characters
                     </Text>
                 </Stack>
             </GridCol>
