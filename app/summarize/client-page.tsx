@@ -19,7 +19,8 @@ const initialState = {
 }
 
 function SummarizeButton() {
-    let { pending } = useFormStatus()
+    let { pending } = useFormStatus();
+
     return (
         <Button
             type="submit"

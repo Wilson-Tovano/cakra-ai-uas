@@ -17,7 +17,7 @@ export default async function handleSummarize(prevState: any, formData: FormData
     }
     try {
         console.log(JSON.stringify({payload: lines}))
-        const response = await fetch(`${process.env.SUMMARIZE_API_URL}/summarize`, {
+        const response = await fetch("https://b668-2001-448a-1071-9868-1de3-791c-1bc4-565d.ngrok-free.app/summarize", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
